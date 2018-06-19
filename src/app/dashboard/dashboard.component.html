@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
+    <div class="container">
+      <a class="navbar-brand" href="#">PDG - Listing</a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <form class="form-inline ml-auto my-lg-0">
+            <input type="text" [(ngModel)]="searchText" name='searchText' class="form-control" placeholder="Search">
+            <button class="btn btn-outline-light m-2 my-sm-0" (click)="filterList(searchText)">Search</button>
+          </form>
+        </div>
+      </div>
+</nav>
+<!--Navbar ends here -->
+
+<div class="container mb-3">
+    
+        <form class="form-inline">
+                <input type="text" class="form-control mr-2"  placeholder="First name" [(ngModel)]='firstname' name='firstname'>
+                <input type="text" class="form-control mr-2" placeholder="Last name" [(ngModel)]='lastname' name='lastname'>
+                <input type="number" class="form-control mr-2" placeholder="Phone number" [(ngModel)]='phone' name='phone'>
+                <button type="submit" class="btn btn-outline-secondary" (click)="addNew(firstname, lastname, phone)"> Add Record </button>
+        </form>
+    
+
+</div>
+
+<!--New Phone record ends here -->
+
+<div class="container" *ngIf="!flag">
+    <div class="row">
+            <div class="col-md-10">
+                    <table class="table" >
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Phone</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class='table-secondary' *ngFor="let list of listingObservable | async ">
+                                    <td>{{list?.firstname}}</td>  
+                                    <td>{{list?.lastname}}</td>
+                                    <td>{{list.phone}}</td>
+                                    <td><button class="btn btn-outline-danger" (click)="deleteMe(list.key)" >Delete me</button></td>
+                                </tr> 
+                            </tbody>
+                        </table>
+            </div>
+    </div>
+</div>
+<div *ngIf='flag'>
+    <div class="container">
+        <div class="row">
+                <div class="col-md-10">
+                        <table class="table" >
+                                <thead class="thead-inverse">
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Phone</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class='table-secondary' *ngFor="let list of listing ">
+                                        <td>{{list.firstname}}</td>  
+                                        <td>{{list.lastname}}</td>
+                                        <td>{{list.phone}}</td>
+                                        <td><button class="btn btn-outline-danger" (click)="deleteMe(list.key)" >Delete me</button></td>
+                                    </tr> 
+                                </tbody>
+                            </table>
+                </div>
+        </div>
+    </div>
+</div>
+<!--List all records ends here -->
